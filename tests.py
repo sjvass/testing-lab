@@ -16,6 +16,11 @@ class PartyTests(unittest.TestCase):
     def test_homepage(self):
         """Can we reach the homepage?"""
 
+
+        """
+        client.get returns an http response object that has an instance method
+        called data
+        """
         result = self.client.get("/")
         self.assertIn(b"having a party", result.data)
 
@@ -23,6 +28,10 @@ class PartyTests(unittest.TestCase):
         """Do users who haven't RSVPed see the correct view?"""
 
         # FIXME: Add a test to show we haven't RSVP'd yet
+        result = self.client.get("/")
+        if session['rsvp'] == False:
+            self.assertIn(b"Please RSVP", result.data)
+
         print("FIXME")
 
     def test_rsvp(self):
